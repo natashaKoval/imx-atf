@@ -115,8 +115,15 @@ int imx_hab_handler(uint32_t smc_fid,
 			return SMC_UNK;
 		}
 	}
-#endif
 
+#if defined(PLAT_imx8mp)
+	if (mmap_add_dynamic_region(IMX_DRAM2_BASE, IMX_DRAM2_BASE,
+					IMX_DRAM2_SIZE, MT_MEMORY | MT_RW | MT_NS)) {
+		ERROR("%s: Failed in mmap_add_dynamic_region!\n", __func__);
+		return SMC_UNK;
+	}
+#endif
+#endif
 	switch (x1) {
 	case IMX_SIP_HAB_ENTRY:
 		ret = g_hab_rvt_api->entry();
@@ -167,6 +174,12 @@ int imx_hab_handler(uint32_t smc_fid,
 			return SMC_UNK;
 		}
 	}
+#if defined(PLAT_imx8mp)
+        if (mmap_remove_dynamic_region(IMX_DRAM2_BASE, IMX_DRAM2_SIZE)) {
+                ERROR("%s: Failed in mmap_remove_dynamic_region!\n", __func__);
+                return SMC_UNK;
+        }
+#endif
 #endif
 
 	return ret;

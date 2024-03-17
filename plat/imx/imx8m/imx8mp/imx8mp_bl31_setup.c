@@ -50,6 +50,7 @@ static const mmap_region_t imx_mmap[] = {
 #endif
 #ifndef PLAT_XLAT_TABLES_DYNAMIC
 	DRAM_MAP,
+	DRAM2_MAP,
 #endif
 	ROM_MAP, VPU_BLK_CTL_MAP, TCM_MAP,
 	{0},
