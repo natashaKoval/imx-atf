@@ -91,7 +91,20 @@
 #define SYSCTR_ACTIVE		BIT(2)
 #define PMIC_STBY_INACTIVE	BIT(3)
 #define OSC24M_ACTIVE		BIT(4)
-#define DRAM_ACTIVE_MASK	BIT(5)
+
+/*
+sleep_mode[3:0] – Currently unused.
+sleep_mode[7:4] – sleep mode performance level
+*/
+#define SM_PERF_LVL_PRK	U(0)
+#define SM_PERF_LVL_LOW	U(1)
+#define SM_PERF_LVL_NOM	U(2)
+#define SM_PERF_LVL_ODV	U(3)
+#define SM_PERF_LVL_SOD	U(4)
+
+#define SYS_SLEEP_MODE_L(x)	(((x) & 0xF) << 16U)
+#define SYS_SLEEP_MODE_H(x)	(((x) & 0xF) << 20U)
+#define SYS_SLEEP_FLAGS(x)	(((x) & 0xFFFFU))
 
 #define GPIO_S_BASE(x)		((x) | BIT(28))
 #define GPIO_CTRL_REG_NUM	U(8)
@@ -632,7 +645,7 @@ void imx_pwr_domain_suspend(const psci_power_state_t *target_state)
 
 		sys_mode = SCMI_IMX_SYS_POWER_STATE_MODE_MASK;
 		if (has_netc_irq) {
-			sys_mode |= OSC24M_ACTIVE;
+			sys_mode |= SYS_SLEEP_MODE_H(SM_PERF_LVL_LOW);
 			scmi_sys_pwr_state_set(imx95_scmi_handle,
 					       SCMI_SYS_PWR_FORCEFUL_REQ,
 					       sys_mode);
