@@ -37,6 +37,11 @@ int plat_scmi_sensor_reading_get(uint32_t agent_id __unused, uint16_t sensor_id 
 	ret = upower_read_temperature(1, &temperature);
 	if (ret) {
 		val[0] = 0xFFFFFFFF;
+
+		if (ret == UPWR_REQ_BUSY)
+			return -EBUSY;
+		else
+			return -EINVAL;
 	} else
 		val[0] = temperature;
 
