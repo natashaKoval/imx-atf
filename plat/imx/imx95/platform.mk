@@ -43,6 +43,7 @@ BL31_SOURCES		+=	drivers/arm/css/scmi/scmi_common.c		\
 				plat/imx/common/imx_sip_handler.c		\
 				plat/imx/common/imx_sip_svc.c			\
 				plat/imx/common/ele_api.c			\
+				plat/imx/common/imx9_sm_sema.c			\
 				${IMX_GIC_SOURCES}				\
 				${XLAT_TABLES_LIB_SRCS}
 
