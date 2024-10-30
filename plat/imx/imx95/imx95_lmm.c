@@ -1,3 +1,9 @@
+/*
+ * Copyright 2024 NXP
+ *
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
 #include <drivers/arm/css/scmi.h>
 #include <imx_sip_svc.h>
 #include <scmi_imx9.h>
