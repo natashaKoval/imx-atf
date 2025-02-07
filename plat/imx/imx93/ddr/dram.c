@@ -264,10 +264,12 @@ void dram_info_init(unsigned long dram_timing_base)
 
 	/* only support maximum 3 setpoints */
 	num_fsp = (i > MAX_FSP_NUM) ? MAX_FSP_NUM : i;
-
+	ERROR("%s: num_fsp=%d\n", __func__, num_fsp);
 	/* no valid fsp table, return directly */
-	if (i == 0)
+	if (i == 0) {
+		ERROR("%s: no valid fsp table, return directly\n", __func__);
 		return;
+	}
 
 	/* set SR_FAST_WK_EN to 1 by default */
 	mmio_setbits_32(REG_DDR_SDRAM_CFG_3, BIT(1));
