@@ -158,10 +158,10 @@ void bl31_plat_arch_setup(void)
 void bl31_platform_setup(void)
 {
 	generic_delay_timer_init();
-
+	ERROR("%s: after generic_delay_timer_init\n", __func__);
 	/* get soc info */
 	ele_get_soc_info();
-
+	ERROR("%s: after ele_get_soc_info\n", __func__);
 	/* Init the dram info */
 	dram_info_init(SAVED_DRAM_TIMING_BASE);
 

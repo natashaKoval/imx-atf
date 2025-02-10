@@ -253,15 +253,23 @@ void dram_info_init(unsigned long dram_timing_base)
 	uint32_t flags = 0;
 	uint32_t rc;
 	int i;
-
+	ERROR("%s: Entering.........\n", __func__);
 	timing_info = (struct dram_timing_info *)dram_timing_base;
+
+	if (!timing_info) {
+		ERROR("%s: Timing info is null\n", __func__);
+		return;
+	}
 
 	/* get the num of supported fsp */
 	for (i = 0; i < 4; ++i){
-		if (!timing_info->fsp_table[i])
+		ERROR("%s: fsp index: %d\n", __func__, i);
+		if (!timing_info->fsp_table[i]) {
+			ERROR("%s: Continue........1\n", __func__);
 			break;
+		}
 	}
-
+	ERROR("%s: Continue........2\n", __func__);
 	/* only support maximum 3 setpoints */
 	num_fsp = (i > MAX_FSP_NUM) ? MAX_FSP_NUM : i;
 	ERROR("%s: num_fsp=%d\n", __func__, num_fsp);
